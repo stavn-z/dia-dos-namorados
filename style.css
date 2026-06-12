@@ -1,0 +1,433 @@
+/* ══════════════════════════════════════════
+   RESET & BASE (Com animação de fundo global)
+══════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; 
+  /* Fundo sutil animado que se aplica a todas as telas */
+  background: linear-gradient(45deg, #0f0509, #1c0811, #0f0509, #15060b);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  font-family: 'Lato', sans-serif;
+  color: #f5e6ea;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ══════════════════════════════════════════
+   PÉTALAS (Em todo o projeto)
+══════════════════════════════════════════ */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1; /* Fica atrás das telas, mas visível */
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  animation: petal-fall linear infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes petal-fall {
+  0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0.7; }
+  100% { transform: translateY(110vh) rotate(420deg); opacity: 0;   }
+}
+
+/* ══════════════════════════════════════════
+   SCREENS (Sem cor de fundo para mostrar as pétalas)
+══════════════════════════════════════════ */
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  background: transparent; /* Deixa o fundo global aparecer */
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ══════════════════════════════════════════
+   TELA 1 — INTRO
+══════════════════════════════════════════ */
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.big-heart {
+  font-size: 56px;
+  color: #c0395a;
+  animation: pulse 1.8s ease-in-out infinite;
+  line-height: 1;
+}
+
+.intro-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 9vw, 58px);
+  font-weight: 600;
+  color: #f5dde5;
+  line-height: 1.2;
+}
+
+.intro-content h1 em {
+  font-style: italic;
+  color: #e0a0b0;
+}
+
+.intro-sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: #9b5a6e;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   BOTÕES
+══════════════════════════════════════════ */
+.btn-primary {
+  background: rgba(122, 32, 64, 0.1);
+  border: 1px solid #7a2040;
+  color: #e8c0cc;
+  padding: 13px 40px;
+  border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.3px;
+  margin-top: 8px;
+}
+.btn-primary:hover { background: rgba(120, 30, 60, 0.4); transform: scale(1.03); }
+
+.btn-secondary {
+  background: rgba(122, 32, 64, 0.1);
+  border: 1px solid rgba(122, 32, 64, 0.6);
+  color: #c8a0b0;
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  letter-spacing: 0.3px;
+}
+.btn-secondary:hover { background: rgba(120, 30, 60, 0.3); }
+
+.btn-spotify {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #1DB954;
+  color: #000;
+  text-decoration: none;
+  padding: 13px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  transition: transform 0.2s, background 0.2s;
+}
+.btn-spotify:hover { transform: scale(1.04); background: #1ed760; }
+
+/* ══════════════════════════════════════════
+   TELA 2 — POEMA
+══════════════════════════════════════════ */
+.poem-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+  padding: 40px 28px;
+  max-width: 460px;
+  width: 100%;
+  animation: poem-reveal 0.6s ease forwards;
+}
+
+@keyframes poem-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.poem-deco { font-size: 34px; color: #c0395a; }
+
+.poem-verse {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(15px, 3.8vw, 18px);
+  line-height: 1.95;
+  color: #f0d4dc;
+}
+
+.poem-msg {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(13px, 3.5vw, 15px);
+  line-height: 1.6;
+  color: #e8c8d0;
+  max-width: 420px;
+  margin-top: 5px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.poem-msg p {
+  margin-bottom: 10px;
+}
+
+.poem-sig {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #9b5a6e;
+}
+
+/* ══════════════════════════════════════════
+   TELA 3 — SLIDESHOW
+══════════════════════════════════════════ */
+.slides-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide.visible { opacity: 1; }
+
+/* Configuração da Foto e Animação de Fundo/Aura */
+@keyframes photoAura {
+  0%, 100% { box-shadow: 0 0 15px rgba(192, 57, 90, 0.3); }
+  50% { box-shadow: 0 0 45px rgba(192, 57, 90, 0.7); }
+}
+
+.slide img {
+  max-width: 90%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 15px; 
+  /* Adiciona a animação de aura nas fotos */
+  animation: photoAura 3s infinite alternate;
+  transform: scale(0.95);
+  transition: transform 2s ease;
+}
+
+.slide.visible img {
+  transform: scale(1);
+}
+
+.slide-ui {
+  position: absolute;
+  bottom: 22px;
+  left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+
+.dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  background: #c0395a;
+  transform: scale(1.45);
+}
+
+/* ══════════════════════════════════════════
+   TELA 4 — FINAL
+══════════════════════════════════════════ */
+.final-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 40px 28px;
+}
+
+.final-heart {
+  font-size: 64px;
+  color: #c0395a;
+  animation: pulse 1.8s ease-in-out infinite;
+  line-height: 1;
+}
+
+.final-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 8vw, 50px);
+  font-weight: 600;
+  color: #f5dde5;
+  line-height: 1.2;
+}
+
+.final-content h2 em {
+  font-style: italic;
+  color: #e0a0b0;
+}
+
+/* ══════════════════════════════════════════
+   TELA 4 — FINAL E CARTA
+══════════════════════════════════════════ */
+.final-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  height: 100vh; /* Trava a altura para não vazar da tela */
+}
+
+.final-heart {
+  font-size: 64px;
+  color: #c0395a;
+  animation: pulse 1.8s ease-in-out infinite;
+  line-height: 1;
+}
+
+.final-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 8vw, 50px);
+  font-weight: 600;
+  color: #f5dde5;
+  line-height: 1.2;
+}
+
+.final-content h2 em {
+  font-style: italic;
+  color: #e0a0b0;
+}
+
+/* --- A CAIXA DA CARTA --- */
+.final-text {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(14px, 3.5vw, 16px);
+  line-height: 1.6;
+  color: #f0d4dc;
+  max-width: 500px;
+  text-align: justify;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(192, 57, 90, 0.3);
+  margin: 5px 0;
+  
+  /* O SEGREDO DO SCROLL ESTÁ AQUI: */
+  max-height: 45vh; /* A caixa ocupa no máximo 45% da tela */
+  overflow-y: auto; /* A rolagem acontece APENAS dentro desta caixa */
+}
+
+/* Estilizando a barra de rolagem da carta para ficar bonita */
+.final-text::-webkit-scrollbar {
+  width: 6px;
+}
+.final-text::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.final-text::-webkit-scrollbar-thumb {
+  background: #c0395a;
+  border-radius: 10px;
+}
+
+.final-text p {
+  margin-bottom: 12px;
+}
+
+.final-text p:last-child {
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #e0a0b0;
+}
+
+.final-text p {
+  margin-bottom: 12px;
+}
+
+.final-text p:last-child {
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #e0a0b0;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);    }
+  50%       { transform: scale(1.25); }
+}
