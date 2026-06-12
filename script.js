@@ -2,15 +2,15 @@
    CONFIGURAÇÃO DAS FOTOS
 ══════════════════════════════════════════ */
 const PHOTOS = [
-  'img/photo1.jpg',
-  'img/photo2.jpg',
-  'img/photo3.jpg',
-  'img/photo4.jpg',
-  'img/photo5.jpg',
-  'img/photo6.jpg',
-  'img/photo7.jpg',
-  'img/photo8.jpg',
-  'img/photo9.jpg'
+  'photo1.jpg',
+  'photo2.jpg',
+  'photo3.jpg',
+  'photo4.jpg',
+  'photo5.jpg',
+  'photo6.jpg',
+  'photo7.jpg',
+  'photo8.jpg',
+  'photo9.jpg'
 ];
 
 const SLIDE_INTERVAL = 4000;
@@ -107,13 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const bgMusic = document.getElementById('bg-music');
   if (bgMusic) {
-      bgMusic.volume = 0.6; // Volume perfeito para ser de fundo
+      bgMusic.volume = 0.6; 
   }
 
-  // Clicou no botão iniciar (Toca a música!)
   document.getElementById('btn-start').addEventListener('click', () => {
     if(bgMusic) {
-        bgMusic.load(); // Garante o carregamento
+        bgMusic.load(); 
         bgMusic.play().catch(e => console.log("Erro ao tocar áudio.", e));
     }
     showScreen('screen-poem');
@@ -131,14 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     goTo(currentSlide + 1);
   });
 
-  // TELA FINAL -> REINICIAR DO COMEÇO
   document.getElementById('btn-restart').addEventListener('click', () => {
     showScreen('screen-intro');
     clearTimeout(autoTimer);
-    // As linhas que pausavam a música foram removidas! A música continua tocando.
   });
 
-  // Arrastar pelo celular
   let touchStartX = 0;
   document.getElementById('screen-slides').addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
